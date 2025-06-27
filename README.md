@@ -10,7 +10,7 @@ npm create astro@latest -- --template basics
 
 > 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+![just-the-basics](https://github.com/astro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
 
 ## 🚀 Project Structure
 
@@ -42,6 +42,47 @@ All commands are run from the root of the project, from a terminal:
 | `npm run preview`         | Preview your build locally, before deploying     |
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
+
+## 🚀 Deployment to GitHub Pages
+
+This project is configured for deployment to GitHub Pages. Follow these steps to deploy:
+
+### Prerequisites
+1. Make sure your repository is on GitHub
+2. Ensure you have the necessary permissions to enable GitHub Pages
+
+### Configuration
+1. Update the `astro.config.mjs` file:
+   - Replace `[your-username]` with your actual GitHub username
+   - Replace `astrolocale` with your actual repository name
+
+### Automatic Deployment (Recommended)
+The project includes a GitHub Actions workflow that automatically deploys when you push to the main branch:
+
+1. Push your code to the main branch
+2. Go to your repository settings
+3. Navigate to "Pages" in the sidebar
+4. Under "Source", select "Deploy from a branch"
+5. Choose "gh-pages" branch and "/ (root)" folder
+6. Click "Save"
+
+### Manual Deployment
+If you prefer manual deployment:
+
+```bash
+# Install dependencies
+npm install
+
+# Build the project
+npm run build
+
+# Deploy to GitHub Pages
+npm run deploy
+```
+
+### Accessing Your Site
+Once deployed, your site will be available at:
+`https://[your-username].github.io/astrolocale`
 
 ## 👀 Want to learn more?
 

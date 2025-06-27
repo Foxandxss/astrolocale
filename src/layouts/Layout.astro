@@ -1,5 +1,9 @@
 ---
 import '../styles/global.css';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <!doctype html>
@@ -12,6 +16,12 @@ import '../styles/global.css';
 		<title>Astro Basics</title>
 	</head>
 	<body>
+		<ul>
+			<li><a href={`/${lang}/home/`}>{t('nav.home')}</a></li>
+			<li><a href={`/${lang}/about/`}>{t('nav.hello')}</a></li>
+			<li><a href="https://twitter.com/astrodotbuild">{t('nav.twitter')}</a></li>
+		</ul>
+		
 		<slot />
 	</body>
 </html>

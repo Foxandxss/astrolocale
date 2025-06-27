@@ -1,10 +1,6 @@
 ---
 import Welcome from '../../components/Welcome.astro';
 import Layout from '../../layouts/Layout.astro';
-import { getLangFromUrl, useTranslations } from '../../i18n/utils';
-
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
 
 export async function getStaticPaths() {
   return [
@@ -13,13 +9,6 @@ export async function getStaticPaths() {
   ];
 }
 ---
-
-<ul>
-  <li><a href={`/${lang}/home/`}>{t('nav.home')}</a></li>
-  <li><a href={`/${lang}/about/`}>{t('nav.hello')}</a></li>
-  <li><a href="https://twitter.com/astrodotbuild">{t('nav.twitter')}</a></li>
-</ul>
-
 <Layout>
   <Welcome />
 </Layout>

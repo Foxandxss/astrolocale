@@ -1,26 +1,69 @@
 ---
 import '../styles/global.css';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { languages } from '../i18n/ui';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>AstroLocale - {t('nav.home')}</title>
 	</head>
 	<body>
-		<ul>
-			<li><a href={`/${lang}/home/`}>{t('nav.home')}</a></li>
-			<li><a href={`/${lang}/about/`}>{t('nav.hello')}</a></li>
-			<li><a href="https://twitter.com/astrodotbuild">{t('nav.twitter')}</a></li>
-		</ul>
+		<nav class="bg-white shadow-lg">
+			<div class="container mx-auto px-6 py-4">
+				<div class="flex justify-between items-center">
+					<div class="text-xl font-bold text-blue-600">
+						AstroLocale
+					</div>
+					<div class="flex items-center space-x-8">
+						<ul class="flex space-x-8">
+							<li><a href={`/${lang}/`} class="text-gray-700 hover:text-blue-600 transition-colors duration-300 font-medium">{t('nav.home')}</a></li>
+							<li><a href={`/${lang}/about/`} class="text-gray-700 hover:text-blue-600 transition-colors duration-300 font-medium">{t('nav.about')}</a></li>
+							<li><a href="https://twitter.com/astrodotbuild" class="text-gray-700 hover:text-blue-600 transition-colors duration-300 font-medium">{t('nav.twitter')}</a></li>
+						</ul>
+						
+						<!-- Language Selector -->
+						<div class="relative group">
+							<button class="flex items-center space-x-2 bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg transition-colors duration-300">
+								<svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+								</svg>
+								<span class="text-gray-700 font-medium">{languages[lang]}</span>
+								<svg class="w-4 h-4 text-gray-600 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+								</svg>
+							</button>
+							
+							<!-- Dropdown Menu -->
+							<div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+								<div class="py-2">
+									{Object.entries(languages).map(([code, name]) => (
+										<a 
+											href={`/${code}${Astro.url.pathname.replace(`/${lang}`, '')}`}
+											class={`block px-4 py-2 text-sm transition-colors duration-200 ${
+												code === lang 
+													? 'bg-blue-50 text-blue-600 font-medium' 
+													: 'text-gray-700 hover:bg-gray-50'
+											}`}
+										>
+											{name}
+										</a>
+									))}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
 		
 		<slot />
 	</body>

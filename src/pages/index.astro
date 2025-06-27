@@ -1,7 +1,26 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import { defaultLang } from '../i18n/ui';
+
+export async function getStaticPaths() {
+  return [
+    { params: {} }
+  ];
+}
 ---
 
-<Layout>
-  <h1>Hello World</h1>
-</Layout>
+<script>
+  // Get user's preferred language from browser
+  const userLang = navigator.language.split('-')[0];
+  const supportedLangs = ['en', 'es'];
+  const redirectLang = supportedLangs.includes(userLang) ? userLang : '${defaultLang}';
+  
+  window.location.href = '/' + redirectLang + '/';
+</script>
+
+<!-- Fallback content -->
+<div class="flex items-center justify-center min-h-screen">
+  <div class="text-center">
+    <h1 class="text-2xl font-bold mb-4">Redirecting...</h1>
+    <p class="text-gray-600">Please wait while we redirect you to your preferred language.</p>
+  </div>
+</div>

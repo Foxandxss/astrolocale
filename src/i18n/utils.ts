@@ -11,3 +11,10 @@ export function useTranslations(lang: keyof typeof ui) {
     return key in ui[lang] ? (ui[lang] as any)[key] : ui[defaultLang][key];
   }
 }
+
+// Centralized getStaticPaths for all localized pages
+export function getStaticPathsForLocales() {
+  return Object.keys(ui).map((locale) => ({
+    params: { locale },
+  }));
+}

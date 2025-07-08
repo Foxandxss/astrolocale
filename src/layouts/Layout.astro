@@ -45,18 +45,23 @@ const t = useTranslations(lang);
 							<!-- Dropdown Menu -->
 							<div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
 								<div class="py-2">
-									{Object.entries(languages).map(([code, name]) => (
-										<a 
-											href={`/${code}${Astro.url.pathname.replace(`/${lang}`, '')}`}
-											class={`block px-4 py-2 text-sm transition-colors duration-200 ${
-												code === lang 
-													? 'bg-blue-50 text-blue-600 font-medium' 
-													: 'text-gray-700 hover:bg-gray-50'
-											}`}
-										>
-											{name}
-										</a>
-									))}
+									{Object.entries(languages).map(([code, name]) => {
+										const url = Astro.url.pathname.replace(`/${lang}`, `/${code}`);
+										console.log(`Direccion actual: ${Astro.url.pathname}, idioma actual: ${lang}, idioma nuevo: ${code}, nueva direccion: ${url}`);
+										
+										return (
+											<a 
+												href={url}
+												class={`block px-4 py-2 text-sm transition-colors duration-200 ${
+													code === lang 
+														? 'bg-blue-50 text-blue-600 font-medium' 
+														: 'text-gray-700 hover:bg-gray-50'
+												}`}
+											>
+												{name}
+											</a>
+										);
+									})}
 								</div>
 							</div>
 						</div>
